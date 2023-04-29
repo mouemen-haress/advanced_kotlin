@@ -1,12 +1,21 @@
 package com.example.twowaydemo1
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
-    val userName = MutableLiveData<String>()
+    val total = MutableLiveData<Int>()
+    val inputText = MutableLiveData<String>()
+
 
     init {
-        userName.value = "frank"
+        total.value = 0
     }
+
+    fun add() {
+        var inputText = inputText.value!!.toInt()
+        total.value = total.value?.plus(inputText)
+    }
+
 }
