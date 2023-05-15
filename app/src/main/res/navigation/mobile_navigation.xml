@@ -3,23 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
+    app:startDestination="@id/homeFragment">
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.twowaydemo1.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
+        android:id="@+id/homeFragment"
+        android:name="com.example.twowaydemo1.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_secondFragment22"
+            app:destination="@id/secondFragment2"
+            app:exitAnim="@anim/push_left_out" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.twowaydemo1.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/secondFragment2"
+        android:name="com.example.twowaydemo1.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" />
 
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.twowaydemo1.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>
