@@ -1,22 +1,31 @@
 package com.example.twowaydemo1
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
@@ -25,150 +34,109 @@ class jetPackActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BoxExampleThree()
+
         }
 
     }
+
+
 }
 
 @Composable
-fun BoxExampleOne() {
-    Box(
+fun ButtonDemo() {
+    val context = LocalContext.current
+
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(Color.Gray)
-            .size(180.dp, 300.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .background(Color.Yellow)
-                .size(60.dp, 60.dp)
-        ) {
-        }
-        Text(
-            text = "hello",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(90.dp, 50.dp)
-                .align(Alignment.BottomCenter),
-
-            )
-    }
-}
-
-@Composable
-fun BoxExampleTwo() {
-    Box(
-        modifier = Modifier
-            .background(Color.Gray)
             .fillMaxSize()
     ) {
+        NormalBtn()
+        TextBtn()
+        OutLineBtn()
+        IconBtn()
+        CustomizedBtn()
+    }
+
+
+}
+
+@Composable
+fun NormalBtn() {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            Toast.makeText(context, "click normal btn", Toast.LENGTH_LONG).show()
+        },
+        shape = RectangleShape
+    ) {
+        Text(text = "Add to cart")
+    }
+}
+
+@Composable
+fun CustomizedBtn() {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            Toast.makeText(context, "click normal btn", Toast.LENGTH_LONG).show()
+        },
+        contentPadding = PaddingValues(16.dp),
+        border = BorderStroke(10.dp, Color.Black),
+        colors = ButtonDefaults.textButtonColors(
+            containerColor = Color.DarkGray,
+            contentColor = Color.White
+        ),
+        shape = RectangleShape
+    ) {
         Text(
-            text = "top start",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(120.dp, 50.dp)
-                .padding(10.dp)
-                .align(Alignment.TopStart)
-
-        )
-
-        Text(
-            text = "top end",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(120.dp, 50.dp)
-                .padding(10.dp)
-                .align(Alignment.TopEnd)
-
-        )
-
-
-
-        Text(
-            text = "Center",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(120.dp, 50.dp)
-                .padding(10.dp)
-                .align(Alignment.Center)
-
-        )
-
-
-        Text(
-            text = "CenterEnd",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(120.dp, 50.dp)
-                .padding(10.dp)
-                .align(Alignment.CenterEnd)
-
-        )
-
-        Text(
-            text = "BottomStart",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(120.dp, 50.dp)
-                .padding(10.dp)
-                .align(Alignment.BottomStart)
-
-        )
-
-        Text(
-            text = "BottomCenter",
-            style = MaterialTheme.typography.bodyLarge,
-
-            modifier = Modifier
-                .background(Color.White)
-                .size(120.dp, 50.dp)
-                .padding(10.dp)
-                .align(Alignment.BottomCenter)
-
+            text = "Add to cart",
+            style = MaterialTheme.typography.displaySmall,
+            modifier = Modifier.padding(5.dp)
         )
     }
 }
 
 @Composable
-fun BoxExampleThree() {
-    Box {
-        Image(
-            painter = painterResource(id = R.drawable.test),
-            contentDescription = "test description "
-        )
-        Text(
-            text = "dec",
-            style = MaterialTheme.typography.headlineLarge,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
-
-        Button(
-            onClick = {},
-        ) {
-            Text(text = "click me ")
-        }
+fun TextBtn() {
+    val context = LocalContext.current
+    TextButton(onClick = {
+        Toast.makeText(context, "hi baby", Toast.LENGTH_LONG).show()
+    }) {
+        Text(text = "Add to cart")
     }
 }
 
+@Composable
+fun OutLineBtn() {
+    val context = LocalContext.current
+    OutlinedButton(onClick = {
+        Toast.makeText(context, "hi baby", Toast.LENGTH_LONG).show()
+    }) {
+        Text(text = "Add to cart")
+    }
+}
+
+@Composable
+fun IconBtn() {
+    val context = LocalContext.current
+    IconButton(onClick = {
+        Toast.makeText(context, "click normal btn", Toast.LENGTH_LONG).show()
+    }) {
+        Icon(
+            Icons.Filled.Phone,
+            contentDescription = "dec",
+            tint = Color.Blue,
+            modifier = Modifier.size(70.dp)
+        )
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     TwoWayDemo1Theme {
-//        Columntutorial("sami")
-        BoxExampleThree()
+        ButtonDemo()
     }
 }
