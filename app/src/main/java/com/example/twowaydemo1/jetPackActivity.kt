@@ -33,7 +33,9 @@ class jetPackActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            RecyclerView()
+            RecyclerView1 {
+                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+            }
         }
 
     }
@@ -41,23 +43,23 @@ class jetPackActivity : ComponentActivity() {
 
 }
 
-@Composable
-fun RecycleDemo() {
-    // like listView
-    val scrolState = rememberScrollState()
 
-    Column(modifier = Modifier.verticalScroll(scrolState)) {
-        for (i in 1..100) {
+@Composable
+fun RecyclerView1(selectedItem: (String) -> Unit) {
+    // like RecyclerView
+    LazyColumn(modifier = Modifier.fillMaxHeight()) {
+        items(100) {
             Text(
-                    text = "User name $i",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(10.dp)
+                text = "User name $it",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .clickable { selectedItem("$it selected") }
             )
             Divider(color = Color.Black, thickness = 5.dp)
+
         }
-
     }
-
 }
 
 @Composable
@@ -67,9 +69,9 @@ fun RecyclerView() {
         items(100) {
 
             Text(
-                    text = "User name $it",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(10.dp)
+                text = "User name $it",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(10.dp)
             )
             Divider(color = Color.Black, thickness = 5.dp)
 
@@ -77,10 +79,34 @@ fun RecyclerView() {
     }
 }
 
+
+@Composable
+fun ListDemo() {
+    // like listView
+    val scrolState = rememberScrollState()
+
+    Column(modifier = Modifier.verticalScroll(scrolState)) {
+        for (i in 1..100) {
+            Text(
+                text = "User name $i",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(10.dp)
+            )
+            Divider(color = Color.Black, thickness = 5.dp)
+        }
+
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
+    var c = LocalContext.current
     TwoWayDemo1Theme {
-        RecycleDemo()
+        RecyclerView1 {
+            Toast.makeText(c, it, Toast.LENGTH_LONG).show()
+
+        }
     }
 }
