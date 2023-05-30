@@ -33,7 +33,7 @@ class jetPackActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            RecyclerView()
+            RecycleDemo()
         }
 
     }
@@ -49,9 +49,9 @@ fun RecycleDemo() {
     Column(modifier = Modifier.verticalScroll(scrolState)) {
         for (i in 1..100) {
             Text(
-                    text = "User name $i",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(10.dp)
+                text = "User name $i",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(10.dp)
             )
             Divider(color = Color.Black, thickness = 5.dp)
         }
@@ -67,9 +67,9 @@ fun RecyclerView() {
         items(100) {
 
             Text(
-                    text = "User name $it",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(10.dp)
+                text = "preview",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(10.dp)
             )
             Divider(color = Color.Black, thickness = 5.dp)
 
