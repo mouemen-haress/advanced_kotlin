@@ -41,12 +41,29 @@ import androidx.compose.ui.unit.sp
 import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
 
 class jetPackActivity : ComponentActivity() {
-
+    /*
+    *       <State Hosting design Pattern> Unidirectional Data flow
+    *We are sending state from caller to the composable.
+    * And we are sending event from composable to the caller.
+    * */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DisplayTvShows()
+            TwoWayDemo1Theme() {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // state hosting design pattern
+                    var count by remember { mutableStateOf(0) }
+                    MyButton(count, {
+                        count = it + 1
+                    })
+                }
+            }
+
 
         }
 
@@ -58,38 +75,28 @@ class jetPackActivity : ComponentActivity() {
 
 //val count = mutableStateOf(0)
 
-@Preview(showBackground = true)
 @Composable
-fun DisplayTvShows() {
+fun MyButton(currentCount: Int, updateCount: (Int) -> Unit) {
     val context = LocalContext.current
-    var count by remember { mutableStateOf(0) }
-
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Button(
+        onClick = {
+            updateCount(currentCount)
+        },
+        contentPadding = PaddingValues(16.dp),
+        border = BorderStroke(10.dp, Color.Black),
+        colors = ButtonDefaults.textButtonColors(
+            containerColor = Color.DarkGray,
+            contentColor = Color.White
+        ),
+        shape = RectangleShape
     ) {
-        Button(
-            onClick = {
-                count = count + 1
-                Toast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
-            },
-            contentPadding = PaddingValues(16.dp),
-            border = BorderStroke(10.dp, Color.Black),
-            colors = ButtonDefaults.textButtonColors(
-                containerColor = Color.DarkGray,
-                contentColor = Color.White
-            ),
-            shape = RectangleShape
-        ) {
-            Text(
-                text = "${count}",
-                style = MaterialTheme.typography.displaySmall,
-                modifier = Modifier.padding(5.dp)
-            )
+        Text(
+            text = "${currentCount}",
+            style = MaterialTheme.typography.displaySmall,
+            modifier = Modifier.padding(5.dp)
+        )
 
-        }
     }
+
 
 }
