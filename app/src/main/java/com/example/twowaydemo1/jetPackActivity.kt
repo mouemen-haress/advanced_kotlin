@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,17 +35,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.composerecyclerview.model.TvShow
-import com.example.twowaydemo1.compose.tvShowListItem
+
 import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
 
 class jetPackActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DisplayTvShows(selectedItem = {
-                startActivity(InfoActivity.intent(it, this))
-            })
+            DisplayTvShows()
+
         }
 
     }
@@ -52,25 +53,38 @@ class jetPackActivity : ComponentActivity() {
 
 }
 
-@Composable
-fun DisplayTvShows(selectedItem: (TvShow) -> Unit) {
-    val tvShows = remember { TvShowList.tvShows }
-    LazyColumn(contentPadding = PaddingValues(16.dp, 8.dp)) {
-        items(items = tvShows, itemContent = {
-            tvShowListItem(tvShow = it, selectedItem)
-        })
-    }
 
-}
-
+val count = mutableStateOf(0)
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    var c = LocalContext.current
-    TwoWayDemo1Theme {
-        DisplayTvShows(selectedItem = {
-            c.startActivity(InfoActivity.intent(it, c))
-        })
+fun DisplayTvShows() {
+    val context = LocalContext.current
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+            onClick = {
+                count.value = count.value+1
+                Toast.makeText(context, count.value.toString(), Toast.LENGTH_SHORT).show()
+            },
+            contentPadding = PaddingValues(16.dp),
+            border = BorderStroke(10.dp, Color.Black),
+            colors = ButtonDefaults.textButtonColors(
+                containerColor = Color.DarkGray,
+                contentColor = Color.White
+            ),
+            shape = RectangleShape
+        ) {
+            Text(
+                text = "${count.value}",
+                style = MaterialTheme.typography.displaySmall,
+                modifier = Modifier.padding(5.dp)
+            )
+
+        }
     }
+
 }
