@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composerecyclerview.model.TvShow
+import com.example.twowaydemo1.compose.tvShowListItem
 import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
 
 class jetPackActivity : ComponentActivity() {
@@ -42,7 +43,7 @@ class jetPackActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DisplayTvShows(selectedItem = {
-
+                startActivity(InfoActivity.intent(it, this))
             })
         }
 
@@ -55,78 +56,11 @@ class jetPackActivity : ComponentActivity() {
 fun DisplayTvShows(selectedItem: (TvShow) -> Unit) {
     val tvShows = remember { TvShowList.tvShows }
     LazyColumn(contentPadding = PaddingValues(16.dp, 8.dp)) {
-        items(
-            items = tvShows,
-            itemContent = {
-                tvShowListItem(tvShow = it, selectedItem)
-            }
-        )
+        items(items = tvShows, itemContent = {
+            tvShowListItem(tvShow = it, selectedItem)
+        })
     }
 
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-public fun tvShowListItem(tvShow: TvShow, selectedItem: (TvShow) -> Unit) {
-    Card(
-        modifier = Modifier
-            .padding(10.dp)
-            .fillMaxSize(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        shape = RoundedCornerShape(corner = CornerSize(10.dp))
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(5.dp)
-                .fillMaxSize()
-                .clickable { selectedItem(tvShow) },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            TvShowImage(tvShow = tvShow)
-            Column {
-                Text(text = tvShow.name, style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = tvShow.overview,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = tvShow.year.toString(),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Text(
-                        text = tvShow.rating.toString(),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
-
-            }
-        }
-    }
-
-}
-
-
-@Composable
-private fun TvShowImage(tvShow: TvShow) {
-    Image(
-        painter = painterResource(id = tvShow.imageId),
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .padding(4.dp)
-            .height(140.dp)
-            .width(100.dp)
-            .clip(RoundedCornerShape(corner = CornerSize(10.dp)))
-    )
 }
 
 
@@ -136,7 +70,7 @@ fun DefaultPreview() {
     var c = LocalContext.current
     TwoWayDemo1Theme {
         DisplayTvShows(selectedItem = {
-
+            c.startActivity(InfoActivity.intent(it, c))
         })
     }
 }
