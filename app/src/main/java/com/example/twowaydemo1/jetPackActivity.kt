@@ -18,8 +18,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,12 +56,15 @@ class jetPackActivity : ComponentActivity() {
 }
 
 
-val count = mutableStateOf(0)
+//val count = mutableStateOf(0)
 
 @Preview(showBackground = true)
 @Composable
 fun DisplayTvShows() {
     val context = LocalContext.current
+    var count by remember { mutableStateOf(0) }
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -67,8 +72,8 @@ fun DisplayTvShows() {
     ) {
         Button(
             onClick = {
-                count.value = count.value+1
-                Toast.makeText(context, count.value.toString(), Toast.LENGTH_SHORT).show()
+                count = count + 1
+                Toast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
             },
             contentPadding = PaddingValues(16.dp),
             border = BorderStroke(10.dp, Color.Black),
@@ -79,7 +84,7 @@ fun DisplayTvShows() {
             shape = RectangleShape
         ) {
             Text(
-                text = "${count.value}",
+                text = "${count}",
                 style = MaterialTheme.typography.displaySmall,
                 modifier = Modifier.padding(5.dp)
             )
