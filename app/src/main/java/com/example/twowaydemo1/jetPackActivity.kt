@@ -38,11 +38,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
 
-class jetPackActivity : ComponentActivity() {
-    /*
+class jetPackActivity : ComponentActivity() {/*
     *       <State Hosting design Pattern> Unidirectional Data flow
     *We are sending state from caller to the composable.
     * And we are sending event from composable to the caller.
@@ -51,6 +51,8 @@ class jetPackActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val viewModel = viewModel<MyViewModel>()
+
             TwoWayDemo1Theme() {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -58,9 +60,9 @@ class jetPackActivity : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     // state hosting design pattern
-                    var count by rememberSaveable { mutableStateOf(0) }
+                    val count = viewModel.count
                     MyButton(count, {
-                        count = it + 1
+                        viewModel.increaseCount()
                     })
                 }
             }
@@ -86,8 +88,7 @@ fun MyButton(currentCount: Int, updateCount: (Int) -> Unit) {
         contentPadding = PaddingValues(16.dp),
         border = BorderStroke(10.dp, Color.Black),
         colors = ButtonDefaults.textButtonColors(
-            containerColor = Color.DarkGray,
-            contentColor = Color.White
+            containerColor = Color.DarkGray, contentColor = Color.White
         ),
         shape = RectangleShape
     ) {
