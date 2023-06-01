@@ -52,71 +52,19 @@ class jetPackActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TwoWayDemo1Theme() {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
+                MainScreen()
+
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
     context: Context = LocalContext.current
 ) {
-
-    var total by remember { mutableStateOf(0.0) }
-    var input by remember { mutableStateOf("") }
-
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(50.dp),
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Text(
-            modifier = modifier.fillMaxWidth(),
-            text = "$input Total is ${total.toString()}",
-            fontWeight = FontWeight.Bold,
-            fontSize = 30.sp,
-            color = Color.DarkGray
-        )
-        OutlinedTextField(
-
-            modifier = modifier.fillMaxWidth(),
-            placeholder = { Text("Enter value here") },
-            value = input,
-            onValueChange = {
-                input = it
-            },
-            textStyle = TextStyle(
-                color = Color.LightGray,
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            ),
-            label = { Text(text = "New count") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
-
-        Button(
-            modifier = modifier.fillMaxWidth(),
-            onClick = {
-                total += input.toDouble()
-            }
-        ) {
-            Text(
-                text = "Count",
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
+    Text(text = "Discover")
 
 }
