@@ -88,7 +88,7 @@ fun MyButton(currentCount: Int, updateCount: (Int) -> Unit) {
         contentPadding = PaddingValues(16.dp),
         border = BorderStroke(10.dp, Color.Black),
         colors = ButtonDefaults.textButtonColors(
-            containerColor = Color.DarkGray, contentColor = Color.White
+            containerColor = Color.Red, contentColor = Color.White
         ),
         shape = RectangleShape
     ) {
