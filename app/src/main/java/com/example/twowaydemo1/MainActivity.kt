@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         btnDownloadUserData.setOnClickListener {
             CoroutineScope(Main).launch {
-                tvCount.text = UserDataManagerOne().getTotalUserCount().toString()
+                tvCount.text = UserDataManagerTwo().getTotalUserCount().toString()
             }
         }
     }
