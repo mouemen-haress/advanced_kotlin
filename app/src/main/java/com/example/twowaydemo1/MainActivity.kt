@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 
 class MainActivity : AppCompatActivity() {
     private var count = 0
@@ -23,18 +25,28 @@ class MainActivity : AppCompatActivity() {
         btnCount = findViewById(R.id.btnCount)
         tvCount = findViewById(R.id.tvCount)
 
-        CoroutineScope(IO).launch {
+        // async task inside IO THREAD
+//        CoroutineScope(IO).launch {
+//
+//            val stockOne = async { getStockOne() }
+//            val stockTwo = async { getStockTwo() }
+//
+//            val result = stockOne.await() + stockTwo.await()
+//            Log.i("MyTag", "result =  " + result)
+//
+//        }
 
-            val stockOne = async { getStockOne() }
-            val stockTwo = async { getStockTwo() }
+
+        // async task inside MAIN THREAD
+        CoroutineScope(Main).launch {
+
+            val stockOne = async(IO) { getStockOne() }
+            val stockTwo = async(IO) { getStockTwo() }
 
             val result = stockOne.await() + stockTwo.await()
-            Log.i("MyTag", "result =  " + result)
-
+            Toast.makeText(applicationContext, "rsult is : $result", Toast.LENGTH_SHORT).show()
         }
-        btnDownloadUserData.setOnClickListener {
 
-        }
     }
 
     private suspend fun getStockOne(): Int {
