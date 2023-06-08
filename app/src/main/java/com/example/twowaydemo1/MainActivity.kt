@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -13,26 +16,20 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private var count = 0
-
-    private lateinit var btnDownloadUserData: Button
-    private lateinit var btnCount: Button
-    private lateinit var tvCount: TextView
+    private lateinit var mainActivityViewModel: MainActivityViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
-        btnDownloadUserData = findViewById(R.id.btnDownloadUserData)
-        btnCount = findViewById(R.id.btnCount)
-        tvCount = findViewById(R.id.tvCount)
 
+        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
-        btnDownloadUserData.setOnClickListener {
-            CoroutineScope(Main).launch {
-                tvCount.text = UserDataManagerTwo().getTotalUserCount().toString()
+        mainActivityViewModel.users.observe(this, Observer {
+            it?.forEach {
+                Log.i("MyTag", it.name)
             }
-        }
+        })
     }
 
 }
