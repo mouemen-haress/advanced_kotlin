@@ -6,8 +6,7 @@ import dagger.internal.DaggerCollections
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    @Inject
-    lateinit var smartPhone: SmartPhone
+
 
     @Inject
     lateinit var memoryCard: MemoryCard
@@ -17,8 +16,7 @@ class MainActivity : AppCompatActivity() {
 
 //        DaggerSmartPhoneComponent.create().inject(this)
 //        smartPhone.makeACallWithRecording()
-
-        DaggerSmartPhoneComponent.builder().memoryCardModule(MemoryCardModule(4)).build()
+        (application as SmartPhoneApplication).smartPhoneComponent
             .inject(this)
 
 
