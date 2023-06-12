@@ -7,6 +7,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var smartPhone: SmartPhone
 
     @Inject
     lateinit var memoryCard: MemoryCard
@@ -18,8 +19,7 @@ class MainActivity : AppCompatActivity() {
 //        smartPhone.makeACallWithRecording()
         (application as SmartPhoneApplication).smartPhoneComponent
             .inject(this)
-
-
+        smartPhone.makeACallWithRecording()
 //        val smartPhone = SmartPhone(
 //            Battery(),
 //            SIMCard(ServiceProvider()),
@@ -28,5 +28,7 @@ class MainActivity : AppCompatActivity() {
 //            .makeACallWithRecording()
 
 
+        //////////////////////
+        // add singelton annotation
     }
 }

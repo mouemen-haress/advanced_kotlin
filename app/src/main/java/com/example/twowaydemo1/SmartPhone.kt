@@ -2,7 +2,9 @@ package com.example.twowaydemo1
 
 import android.util.Log
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class SmartPhone @Inject constructor(
     val battery: Battery,
     val simCard: SIMCard,
