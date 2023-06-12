@@ -2,7 +2,7 @@ package com.example.twowaydemo1
 
 import dagger.Component
 
-@Component(modules = [MemoryCardModule::class,NickelBatteryModel::class])
+@Component(modules = [MemoryCardModule::class, NickelBatteryModel::class])
 interface SmartPhoneComponent {
-    fun getSmartPhone(): SmartPhone
+    fun inject(mainActivity: MainActivity)
 }
