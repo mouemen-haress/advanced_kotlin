@@ -15,8 +15,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
 
-        DaggerSmartPhoneComponent.create().inject(this)
-        smartPhone.makeACallWithRecording()
+//        DaggerSmartPhoneComponent.create().inject(this)
+//        smartPhone.makeACallWithRecording()
+
+        DaggerSmartPhoneComponent.builder().memoryCardModule(MemoryCardModule(4)).build()
+            .inject(this)
+
+
 //        val smartPhone = SmartPhone(
 //            Battery(),
 //            SIMCard(ServiceProvider()),
