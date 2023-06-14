@@ -1,32 +1,40 @@
 package com.example.twowaydemo1
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import dagger.internal.DaggerCollections
-import javax.inject.Inject
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
 
-class MainActivity : AppCompatActivity() {
-
-
-    @Inject
-    lateinit var memoryCard: MemoryCard
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main3)
+        setContent {
+            TwoWayDemo1Theme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    BaseScreen()
+                }
+            }
+        }
+    }
+}
 
-//        DaggerSmartPhoneComponent.create().inject(this)
-//        smartPhone.makeACallWithRecording()
-        (application as SmartPhoneApplication).smartPhoneComponent
-            .inject(this)
 
 
-//        val smartPhone = SmartPhone(
-//            Battery(),
-//            SIMCard(ServiceProvider()),
-//            MemoryCard()
-//        )
-//            .makeACallWithRecording()
-
-
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    TwoWayDemo1Theme {
+        BaseScreen()
     }
 }
