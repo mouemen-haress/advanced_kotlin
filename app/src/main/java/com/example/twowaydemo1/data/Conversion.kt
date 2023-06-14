@@ -1,4 +1,4 @@
-package com.example.twowaydemo1
+package com.example.twowaydemo1.data
 
 data class Conversion(
     val id: Int,

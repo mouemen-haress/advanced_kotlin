@@ -1,6 +1,7 @@
 package com.example.twowaydemo1
 
 import androidx.lifecycle.ViewModel
+import com.example.twowaydemo1.data.Conversion
 
 class ConvertViewModel : ViewModel() {
     fun getConversion() = listOf(
