@@ -36,6 +36,13 @@ fun TopScreen(
         val df = DecimalFormat("#.####")
         df.roundingMode = RoundingMode.DOWN
         val roundedRes = df.format(res)
+
+        val messageOne =
+            "${typedValue.value} ${selectedConversion.value!!.convertFrom} is equal to "
+        val messageTwo = "${roundedRes} ${selectedConversion.value!!.convertTo}"
+
+        ResultBlock(messageOne = messageOne, messageTwo = messageTwo)
+
     }
 
 }
