@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -19,6 +19,9 @@ interface ConversionDao {
     @Query("DELETE FROM result_table")
     suspend fun deleteAll()
 
-    fun getResult():Flow
+    // room library use coroutine in select query so no need to use suspend
+
+    @Query("select * from result_table")
+    fun getResult(): Flow<List<ConversionReults>>
 
 }

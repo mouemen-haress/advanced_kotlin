@@ -4,10 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "result")
+@Entity(tableName = "result_table")
 data class ConversionReults(
     @PrimaryKey(autoGenerate = true)
-
     @ColumnInfo(name = "result_id")
     val id: Int,
 
