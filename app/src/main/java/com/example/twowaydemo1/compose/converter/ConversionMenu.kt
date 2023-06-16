@@ -24,32 +24,57 @@ import com.example.twowaydemo1.data.Conversion
 @Composable
 fun ConversionMenu(
     list: List<Conversion>,
+    isLandscape: Boolean,
+    dsiplayingText: MutableState<String>,
     modifier: Modifier = Modifier,
     convert: (Conversion) -> Unit
 ) {
 
-    var dsiplayingText by rememberSaveable { mutableStateOf("Select Conversion type") }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
     var expanded by remember { mutableStateOf(false) }
 
     val icon = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown
 
     Column() {
-        OutlinedTextField(
-            value = dsiplayingText,
-            onValueChange = { dsiplayingText = it },
-            textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
-            modifier = Modifier
-                .fillMaxWidth()
-                .onGloballyPositioned { coordinates ->
-                    textFieldSize = coordinates.size.toSize()
+        if (isLandscape) {
+            OutlinedTextField(
+                value = dsiplayingText.value,
+                onValueChange = { dsiplayingText.value = it },
+                textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+                modifier = Modifier
+                    .onGloballyPositioned { coordinates ->
+                        textFieldSize = coordinates.size.toSize()
+                    },
+                label = { Text(text = "Conersion Type") },
+                trailingIcon = {
+                    Icon(
+                        icon,
+                        contentDescription = "icon",
+                        modifier.clickable { expanded = !expanded })
                 },
-            label = { Text(text = "Conersion Type") },
-            trailingIcon = {
-                Icon(icon, contentDescription = "icon", modifier.clickable { expanded = !expanded })
-            },
-            readOnly = true
-        )
+                readOnly = true
+            )
+        } else {
+            OutlinedTextField(
+                value = dsiplayingText.value,
+                onValueChange = { dsiplayingText.value = it },
+                textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onGloballyPositioned { coordinates ->
+                        textFieldSize = coordinates.size.toSize()
+                    },
+                label = { Text(text = "Conersion Type") },
+                trailingIcon = {
+                    Icon(
+                        icon,
+                        contentDescription = "icon",
+                        modifier.clickable { expanded = !expanded })
+                },
+                readOnly = true
+            )
+        }
+
 
         DropdownMenu(
             expanded = expanded,
@@ -63,7 +88,7 @@ fun ConversionMenu(
             list.forEach {
                 DropdownMenuItem(
                     onClick = {
-                        dsiplayingText = it.description
+                        dsiplayingText.value = it.description
                         expanded = false
                         convert(it)
                     }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import com.example.twowaydemo1.data.ConversionReults
@@ -17,7 +18,7 @@ fun HistoryScreen(
     list: State<List<ConversionReults>>,
     onCloseTasc: (ConversionReults) -> Unit,
     onClearAllTasc: () -> Unit,
-
+    isLandscape: Boolean,
     modifier: Modifier = Modifier
 ) {
 

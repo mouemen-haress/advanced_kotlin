@@ -1,8 +1,7 @@
 package com.example.twowaydemo1
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.twowaydemo1.data.Conversion
@@ -16,6 +15,8 @@ class ConvertViewModel(private val repository: ConverterRepository) : ViewModel(
     val selectedConversion: MutableState<Conversion?> = mutableStateOf(null)
     val inpuText: MutableState<String> = mutableStateOf("")
     val typedValue = mutableStateOf("0.0")
+    var dsiplayingText = mutableStateOf("Select Conversion type")
+
     fun getConversion() = listOf(
         Conversion(1, "Pounds to Kilograms", "lbs", "kg", 0.453592),
         Conversion(2, "Kilograms to Pounds", "kg", "lbs", 2.20462),
