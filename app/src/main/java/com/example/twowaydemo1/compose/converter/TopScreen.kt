@@ -13,12 +13,14 @@ import java.text.DecimalFormat
 
 @Composable
 fun TopScreen(
-    list: List<Conversion>, context: Context = LocalContext.current,
+    list: List<Conversion>,
+    selectedConversion: MutableState<Conversion?>,
+    inpuText: MutableState<String>,
+    typedValue: MutableState<String>,
     save: (String, String) -> Unit
 ) {
-    val selectedConversion: MutableState<Conversion?> = remember { mutableStateOf(null) }
-    val inpuText: MutableState<String> = remember { mutableStateOf("") }
-    val typedValue = remember { mutableStateOf("0.0") }
+
+
     ConversionMenu(list = list) {
         selectedConversion.value = it
         typedValue.value = "0.0"
