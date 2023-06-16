@@ -18,6 +18,7 @@ import com.example.twowaydemo1.ui.theme.TwoWayDemo1Theme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val dao = ConverterDataBase.getInstance(applicationContext).converterDAO
         val repository = ConverterRepositoryImp(dao)
         val factory = ConverterViewModelFactory(repository = repository)
@@ -25,7 +26,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             TwoWayDemo1Theme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

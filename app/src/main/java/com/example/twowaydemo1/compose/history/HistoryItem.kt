@@ -46,9 +46,10 @@ fun HistoryItem(
                 fontSize = 20.sp
             )
 
-            IconButton(onClick = { onClose }) {
-                Icon(Icons.Filled.Close, contentDescription = "Close")
-            }
+
+        }
+        IconButton(onClick = { onClose() }) {
+            Icon(Icons.Filled.Close, contentDescription = "Close")
         }
     }
 

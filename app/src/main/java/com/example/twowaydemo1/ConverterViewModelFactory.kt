@@ -7,7 +7,7 @@ import com.example.twowaydemo1.data.ConverterRepository
 class ConverterViewModelFactory(private val repository: ConverterRepository) :
     ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel> create(modelClass: Class<T>): T = ConvertViewModel(repository) as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T  = ConvertViewModel(repository) as T
 
 
 
