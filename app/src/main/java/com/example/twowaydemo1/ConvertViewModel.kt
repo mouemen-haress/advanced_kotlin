@@ -18,6 +18,7 @@ class ConvertViewModel(private val repository: ConverterRepository) : ViewModel(
         Conversion(6, "Kilometers to Miles", "km", "mi", 0.621371)
     )
 
+    val resultList = repository.getResult()
     fun addResult(messageOne: String, messageTwo: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertResult(ConversionReults(0, messageOne, messageTwo))

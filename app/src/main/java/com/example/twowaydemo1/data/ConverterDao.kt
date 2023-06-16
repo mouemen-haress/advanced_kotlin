@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 @Dao
-interface ConversionDao {
+interface ConverterDao {
 
     @Insert
     suspend fun insertResult(result: ConversionReults)

@@ -2,7 +2,7 @@ package com.example.twowaydemo1.data
 
 import kotlinx.coroutines.flow.Flow
 
-class ConverterRepositoryImp(private val dao: ConversionDao) : ConverterRepository {
+class ConverterRepositoryImp(private val dao: ConverterDao) : ConverterRepository {
     override suspend fun insertResult(result: ConversionReults) {
         dao.insertResult(result)
     }
