@@ -2,33 +2,34 @@ package com.example.twowaydemo1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import dagger.internal.DaggerCollections
-import javax.inject.Inject
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.liveData
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var smartPhone: SmartPhone
-
-    @Inject
-    lateinit var memoryCard: MemoryCard
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main3)
+        setContentView(R.layout.activity_main)
 
-//        DaggerSmartPhoneComponent.create().inject(this)
-//        smartPhone.makeACallWithRecording()
-        (application as SmartPhoneApplication).smartPhoneComponent
-            .inject(this)
-        smartPhone.makeACallWithRecording()
-//        val smartPhone = SmartPhone(
-//            Battery(),
-//            SIMCard(ServiceProvider()),
-//            MemoryCard()
-//        )
-//            .makeACallWithRecording()
+        val retService = RetrofitClient.getRetrofitClient().create(AlbumService::class.java)
 
+        val responseLiveData: LiveData<Response<Albums>> = liveData {
+            val response = retService.getAlbums()
+            emit(response)
+        }
 
-        //////////////////////
-        // add singelton annotation
+        responseLiveData.observe(this, Observer {
+            val albumsList = it.body()?.listIterator()
+            if (albumsList != null) {
+                while (albumsList.hasNext()) {
+                    val albumsItem = albumsList.next()
+                    val result = " Album title  : ${albumsItem.title} \n \n \n "
+
+                }
+            }
+        })
     }
 }

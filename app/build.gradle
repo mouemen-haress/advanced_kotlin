@@ -20,6 +20,15 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField "String" ,"API_KEY","\"9c277be0ba6fe3d00574fac4657da99e\""
+
+
+    }
+    configurations {
+        all {
+            exclude group: 'com.intellij', module: 'annotations'
+        }
     }
 
     buildTypes {
@@ -97,5 +106,18 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.46.1'
     kapt 'com.google.dagger:dagger-compiler:2.46.1'
 
+    def room_version = "2.5.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.11.0"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    kapt 'com.github.bumptech.glide:compiler:4.15.1'
 
 }
