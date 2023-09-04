@@ -1,20 +1,36 @@
 package com.example.twowaydemo1.db
 
-import androidx.room.Database
-import androidx.room.Entity
-import androidx.room.RoomDatabase
-import com.example.twowaydemo1.Article
+import android.content.Context
+import androidx.room.*
+import com.example.twowaydemo1.models.Article
 
-@Database(entities = [Article::class],
-version = 1)
-abstract class ArticleDataBase:RoomDatabase() {
-    abstract fun getArticleDao():ArticleDao
+@Database(
+    entities = [Article::class],
+    version = 1
+)
 
-    companion object{
+@TypeConverters(Converter::class)
+
+
+abstract class ArticleDataBase : RoomDatabase() {
+    abstract fun getArticleDao(): ArticleDao
+
+    companion object {
         @Volatile
-        private var instance:ArticleDataBase?=null
+        private var instance: ArticleDataBase? = null
         private val LOCK = Any()
-         operator fun invoke()
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+            instance ?: createDataBase(context).also {
+                instance = it
+            }
+        }
+
+        private fun createDataBase(context: Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                ArticleDataBase::class.java,
+                "article_db.db"
+            ).build()
 
     }
 }

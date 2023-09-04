@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.twowaydemo1.ui.fragments.ArticleFragment"
-        android:label="ArticleFragment" />
+        android:label="ArticleFragment" >
+        <argument
+            android:name="article"
+            app:argType="com.example.twowaydemo1.models.Article" />
+    </fragment>
     <fragment
         android:id="@+id/brakingNewsFragment"
         android:name="com.example.twowaydemo1.ui.fragments.BrakingNewsFragment"

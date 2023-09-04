@@ -1,4 +1,4 @@
-package com.example.twowaydemo1
+package com.example.twowaydemo1.models
 
 
 import com.google.gson.annotations.SerializedName

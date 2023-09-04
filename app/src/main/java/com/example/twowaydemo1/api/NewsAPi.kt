@@ -1,6 +1,6 @@
 package com.example.twowaydemo1.api
 
-import com.example.twowaydemo1.NewsResponse
+import com.example.twowaydemo1.models.NewsResponse
 import com.example.twowaydemo1.utils.Contants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET
